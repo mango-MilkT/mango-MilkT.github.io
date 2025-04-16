@@ -1,0 +1,19 @@
+site_name: mangoMilkT
+theme:
+  name: null
+  custom_dir: 'cinder'
+nav:
+  - 主页: index.md
+  - 力扣日记:
+    - 树状数组: lc/树状数组.md
+    - 最长回文子串: lc/最长回文子串.md
+  - 计体:
+    - RISC-V 汇编: arch/RISC-V 汇编.md
+  - 计网:
+    - TCP: network/TCP.md
+  - 并行计算:
+    - 多核 CPU: parallel/多核 CPU.md
+markdown_extensions:
+  - toc:
+      permalink: true
+      slugify: !!python/name:slugify.slugify
