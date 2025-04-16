@@ -1,7 +1,5 @@
 # 欢迎来到 *mangoMilkT* ！
 
-目前已部署到 https://mango-milkt.github.io/
-
 <br>
 
 # 最新博客
