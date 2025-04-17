@@ -11,7 +11,7 @@
     <link rel="shortcut icon" href="../../img/favicon.ico">
 
     
-    <title>多核 CPU - mangoMilkT</title>
+    <title>数论（长期） - mangoMilkT</title>
     
 
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/all.css">
@@ -75,31 +75,31 @@
                 
                 
                 
-                    <li class="dropdown">
+                    <li class="dropdown active">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">力扣日记 <b class="caret"></b></a>
                         <ul class="dropdown-menu">
                         
                             
 <li >
-    <a href="../../lc/%E6%A0%91%E7%8A%B6%E6%95%B0%E7%BB%84/">树状数组</a>
+    <a href="../%E6%A0%91%E7%8A%B6%E6%95%B0%E7%BB%84/">树状数组</a>
 </li>
 
                         
                             
 <li >
-    <a href="../../lc/%E6%9C%80%E9%95%BF%E5%9B%9E%E6%96%87%E5%AD%90%E4%B8%B2/">最长回文子串</a>
+    <a href="../%E6%9C%80%E9%95%BF%E5%9B%9E%E6%96%87%E5%AD%90%E4%B8%B2/">最长回文子串</a>
 </li>
 
                         
                             
 <li >
-    <a href="../../lc/%E5%93%88%E5%B8%8C%E8%A1%A8%E5%8E%9F%E7%90%86/">哈希表原理</a>
+    <a href="../%E5%93%88%E5%B8%8C%E8%A1%A8%E5%8E%9F%E7%90%86/">哈希表原理</a>
 </li>
 
                         
                             
-<li >
-    <a href="../../lc/%E6%95%B0%E8%AE%BA%EF%BC%88%E9%95%BF%E6%9C%9F%EF%BC%89/">数论（长期）</a>
+<li class="active">
+    <a href="./">数论（长期）</a>
 </li>
 
                         
@@ -138,13 +138,13 @@
                 
                 
                 
-                    <li class="dropdown active">
+                    <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">并行计算 <b class="caret"></b></a>
                         <ul class="dropdown-menu">
                         
                             
-<li class="active">
-    <a href="./">多核 CPU</a>
+<li >
+    <a href="../../parallel/%E5%A4%9A%E6%A0%B8%20CPU/">多核 CPU</a>
 </li>
 
                         
@@ -161,12 +161,12 @@
                         </a>
                     </li>
                     <li >
-                        <a rel="prev" href="../../network/TCP/">
+                        <a rel="prev" href="../%E5%93%88%E5%B8%8C%E8%A1%A8%E5%8E%9F%E7%90%86/">
                             <i class="fas fa-arrow-left"></i> Previous
                         </a>
                     </li>
-                    <li class="disabled">
-                        <a rel="next" >
+                    <li >
+                        <a rel="next" href="../../arch/RISC-V%20%E6%B1%87%E7%BC%96/">
                             Next <i class="fas fa-arrow-right"></i>
                         </a>
                     </li>
@@ -180,11 +180,37 @@
         
         <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
     <ul class="nav bs-sidenav">
+        <li class="first-level active"><a href="#shu-lun">数论</a></li>
+            <li class="second-level"><a href="#1">1</a></li>
+                
+                <li class="third-level"><a href="#k-mid-ab-rightarrow-frac-k-gcd-k-a-mid-b">$k \mid ab \Rightarrow \frac{k}{\gcd(k, a)} \mid b$🔍</a></li>
+                <li class="third-level"><a href="#zheng-ming-ru-xia">证明如下：</a></li>
+                <li class="third-level"><a href="#_1"></a></li>
     </ul>
 </div></div>
         <div class="col-md-9" role="main">
 
-</div>
+<h1 id="shu-lun">数论<a class="headerlink" href="#shu-lun" title="Permanent link">&para;</a></h1>
+<h2 id="1">1<a class="headerlink" href="#1" title="Permanent link">&para;</a></h2>
+<p>相关力扣题目链接：<a href="https://leetcode.cn/problems/count-equal-and-divisible-pairs-in-an-array/">2176. 统计数组中相等且可以被整除的数对</a></p>
+<h3 id="k-mid-ab-rightarrow-frac-k-gcd-k-a-mid-b">$k \mid ab \Rightarrow \frac{k}{\gcd(k, a)} \mid b$🔍<a class="headerlink" href="#k-mid-ab-rightarrow-frac-k-gcd-k-a-mid-b" title="Permanent link">&para;</a></h3>
+<h3 id="zheng-ming-ru-xia"><strong>证明如下：</strong><a class="headerlink" href="#zheng-ming-ru-xia" title="Permanent link">&para;</a></h3>
+<p>设：</p>
+<ul>
+<li>$d = \gcd(k, a)$</li>
+<li>则有：$k = d \cdot k_1$，$a = d \cdot a_1$，其中 $\gcd(k_1, a_1) = 1$</li>
+</ul>
+<p>因为 $k \mid ab$，即：</p>
+<p>$k = d \cdot k_1 \mid ab = (d \cdot a_1)(b)$</p>
+<p>所以：</p>
+<p>$d \cdot k_1 \mid d \cdot a_1 \cdot b \Rightarrow k_1 \mid a_1 \cdot b$</p>
+<p>又因为 $\gcd(k_1, a_1) = 1$，所以根据数论中的基本结论：</p>
+<blockquote>
+<p>若 $\gcd(m, n) = 1$，且 $m \mid n \cdot x$，则 $m \mid x$</p>
+</blockquote>
+<p>可得：</p>
+<p>$k_1 \mid b \Rightarrow \frac{k}{\gcd(k, a)} = k_1 \mid b$</p>
+<h3 id="_1"><a class="headerlink" href="#_1" title="Permanent link">&para;</a></h3></div>
         
         
     </div>
