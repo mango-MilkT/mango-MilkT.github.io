@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    
+    
+    <link rel="shortcut icon" href="../../img/favicon.ico">
+
+    
+    <title>哈希表原理 - mangoMilkT</title>
+    
+
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/all.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/v4-shims.css">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hack-font@3.3.0/build/web/hack.min.css">
+    <link href='//rsms.me/inter/inter.css' rel='stylesheet' type='text/css'>
+    <link href='//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,700italic,400,300,600,700&subset=latin-ext,latin' rel='stylesheet' type='text/css'>
+    <link href="../../css/bootstrap-custom.min.css" rel="stylesheet">
+    <link href="../../css/base.min.css" rel="stylesheet">
+    <link href="../../css/cinder.min.css" rel="stylesheet">
+
+    
+        
+        <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.18.0/build/styles/github.min.css">
+        
+    
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+            <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+            <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+        <![endif]-->
+
+    
+
+     
+</head>
+
+<body>
+
+    <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+
+        <!-- Collapsed navigation -->
+        <div class="navbar-header">
+            <!-- Expander button -->
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            
+
+            <!-- Main title -->
+
+            
+              <a class="navbar-brand" href="../..">mangoMilkT</a>
+            
+        </div>
+
+        <!-- Expanded navigation -->
+        <div class="navbar-collapse collapse">
+                <!-- Main navigation -->
+                <ul class="nav navbar-nav">
+                
+                
+                    <li >
+                        <a href="../..">主页</a>
+                    </li>
+                
+                
+                
+                    <li class="dropdown active">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">力扣日记 <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                        
+                            
+<li >
+    <a href="../Fenwick_Tree/">树状数组</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../Longest_Palindromic_Substring/">最长回文子串</a>
+</li>
+
+                        
+                            
+<li class="active">
+    <a href="./">哈希表原理</a>
+</li>
+
+                        
+                        </ul>
+                    </li>
+                
+                
+                
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">计体 <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                        
+                            
+<li >
+    <a href="../../arch/RISC-V_Assembly/">RISC-V 汇编</a>
+</li>
+
+                        
+                        </ul>
+                    </li>
+                
+                
+                
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">计网 <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                        
+                            
+<li >
+    <a href="../../network/TCP/">TCP</a>
+</li>
+
+                        
+                        </ul>
+                    </li>
+                
+                
+                
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">并行计算 <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                        
+                            
+<li >
+    <a href="../../parallel/Multi-core_CPU/">多核 CPU</a>
+</li>
+
+                        
+                        </ul>
+                    </li>
+                
+                
+                
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">PDF <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                        
+                            
+<li >
+    <a href="../../pdf/On_Java/">On Java</a>
+</li>
+
+                        
+                        </ul>
+                    </li>
+                
+                
+                </ul>
+
+            <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="#" data-toggle="modal" data-target="#mkdocs_search_modal">
+                            <i class="fas fa-search"></i> Search
+                        </a>
+                    </li>
+                    <li >
+                        <a rel="prev" href="../Longest_Palindromic_Substring/">
+                            <i class="fas fa-arrow-left"></i> Previous
+                        </a>
+                    </li>
+                    <li >
+                        <a rel="next" href="../../arch/RISC-V_Assembly/">
+                            Next <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+    <div class="container">
+        
+        
+        <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
+    <ul class="nav bs-sidenav">
+        <li class="first-level active"><a href="#_1">哈希表原理</a></li>
+            <li class="second-level"><a href="#_2">核心：哈希表是怎么接纳一个新键值对的</a></li>
+                
+            <li class="second-level"><a href="#_3">哈希冲突</a></li>
+                
+            <li class="second-level"><a href="#_4">负载因子和扩容</a></li>
+                
+            <li class="second-level"><a href="#in-unordered_map">自定义哈希函数（in unordered_map）</a></li>
+                
+    </ul>
+</div></div>
+        <div class="col-md-9" role="main">
+
+<h1 id="_1">哈希表原理</h1>
+<p>相关力扣题目链接：<a href="https://leetcode.cn/problems/count-equal-and-divisible-pairs-in-an-array/">2176. 统计数组中相等且可以被整除的数对</a></p>
+<h2 id="_2">核心：哈希表是怎么接纳一个新键值对的</h2>
+<p>我们平时处理的数据大多是以键值对的形式出现的。比如数组里，每个下标<code>i</code>和对应的数组值<code>arr[i]</code>就构成了一个键值对。值是具体的数值，键则是帮助我们索引，或者说查询、定位用的。可以用线性表描述的数据，即“第一个值是什么，第二个值是什么，……”，用数组存储就能搞定。稍微复杂一些，原始数据的下标不从 1 或者 0 开始，而是从某个<code>-bias</code>开始，但依然是一段连续的整数序列时，我们可以将下标集体偏移<code>bias</code>个单位，然后用数组存储。</p>
+<p>但当数据的键不再是一段连续的整数序列，而是一堆分散的取值时，比如<code>&lt;int&gt; 2, 5, 6, 9, -10, ...</code>或者<code>&lt;string&gt; Alan, Bob, Zebra, Trump, ...</code>（注意，这些是键，每个键还带着它的值），是不是就很难用数组存储这些键值对了呢。</p>
+<p>不过，我们想到模仿<code>bias</code>的做法，使用某种映射规则，将分散或者说各异的键转换到一段连续的整数序列（最好和最简单的情况一样，是从 0 开始的自然数序列）。这样每次查询一个键时，我们通过映射就能得到键对应的“数组下标”，进而得到该位置存储的值。</p>
+<p>以下是哈希表接纳键值对的核心原理：</p>
+<ul>
+<li>通过哈希函数将键<code>key</code>映射为一个整数，即哈希值<code>hash(key)</code></li>
+<li>再通过<code>hash(key) % bucket_count</code>得到数组下标，称这个键位于第几个哈希桶</li>
+<li>一个桶中可以存放多个元素，用来应对哈希冲突</li>
+</ul>
+<h2 id="_3">哈希冲突</h2>
+<p>由于不同的键可能被哈希到同一个桶，为解决冲突，常用的有开链法、开放地址法。</p>
+<ul>
+<li>开链法</li>
+<li>每个桶维护一个<strong>链表</strong>或<strong>平衡树</strong>。</li>
+<li>同一桶中多个元素以链表形式存储。</li>
+<li>开放地址法</li>
+<li>所有元素都存储在数组中。</li>
+<li>若当前位置已被占用，尝试向后查找空位（线性探测、二次探测、双重哈希等）。</li>
+<li>缺点：负载过高时性能急剧下降。</li>
+</ul>
+<h2 id="_4">负载因子和扩容</h2>
+<p>当元素数量超过桶的数量，再优秀的哈希函数（即再平均的分布）也无法避免哈希冲突（抽屉原理）。所以我们应当根据负载因子考虑自动扩容。</p>
+<ul>
+<li>负载因子（Load Factor）：<code>元素数量 / 桶数量</code></li>
+<li>当负载因子超过某个阈值时，触发自动扩容（rehash）：</li>
+<li>分配更大的桶数组</li>
+<li>重新计算每个键的哈希值和桶位置</li>
+<li>将所有元素搬迁到新桶中</li>
+</ul>
+<p>在 <code>std::unordered_map</code> 中：</p>
+<ul>
+<li>
+<p><strong>默认初始桶数</strong>：<code>std::unordered_map</code> 的实现依赖于编译器使用的标准库，通常初始为 <strong>8、16 或 53</strong>（是一个质数或 2 的幂次方），不同实现有所差异，比如<code>GCC</code>和<code>MSVC</code>就不同。可通过 <code>rehash()</code> 或 <code>reserve()</code> 明确设置。</p>
+</li>
+<li>
+<p><strong>负载因子</strong>：默认最大负载因子为 <code>1.0</code>（可以通过 <code>max_load_factor()</code> 修改）</p>
+</li>
+<li><strong>自动扩容</strong>：当插入新元素导致负载因子超过最大值，哈希表会自动扩容，通常会将桶数扩大为下一个更大的质数或 2 的幂。扩容会触发 rehash，所有元素重新分配到新的桶中。</li>
+</ul>
+<blockquote>
+<p>在应对分散的键时，有了不大的初始桶数和自动扩容机制，哈希表才做到了比数组节省空间。</p>
+</blockquote>
+<h2 id="in-unordered_map">自定义哈希函数（in unordered_map）</h2>
+<p>C++ 提供了默认的哈希函数模板 <code>std::hash&lt;T&gt;</code>，可用于大多数基本类型。但遇到<code>pair</code>或自定义类型，我们就需要在哈希表模板<code>std::unordered_map&lt;T&gt;</code>中提供哈希函数和相等比较函数。哈希函数用于映射，相等比较函数用于判断拥有同个哈希桶的两个键到底是完全相等还是只是同哈希值。</p>
+<p>以<code>pair&lt;int, int&gt;</code>举例。</p>
+<pre><code class="language-C++">#include &lt;unordered_map&gt;
+#include &lt;utility&gt;
+
+struct PairHash {  // 定义一个结构体类型 PairHash，用作哈希函数对象。
+    size_t operator()(const std::pair&lt;int, int&gt;&amp; p) const {
+        // 函数调用运算符 即 () 重载，定义了这个结构体作为一个可调用对象（仿函数）。
+        // 参数：const std::pair&lt;int, int&gt;&amp; p，这是要哈希的键。
+        // 返回值类型：size_t，标准哈希值类型。
+        return std::hash&lt;int&gt;()(p.first) ^ (std::hash&lt;int&gt;()(p.second) &lt;&lt; 1);  // 经典的组合哈希写法
+    }
+};
+
+struct PairEqual {  // 另一个结构体，用来判断两个键是否相等。
+    bool operator()(const std::pair&lt;int, int&gt;&amp; a, const std::pair&lt;int, int&gt;&amp; b) const {
+        return a.first == b.first &amp;&amp; a.second == b.second;
+    }
+};
+
+std::unordered_map&lt;std::pair&lt;int, int&gt;, int, PairHash, PairEqual&gt; map;  // PairEqual 位置可以不填，C++ 内置对 pair 的相等比较函数
+
+</code></pre>
+<p><br></p>
+<hr />
+<blockquote>
+<p>📄 笔者：mangoMilkT</p>
+<p>🕒 写于：2025.4.17</p>
+<p>📝 版权所有，转载请注明出处。</p>
+</blockquote></div>
+        
+        
+    </div>
+
+    
+      <footer class="col-md-12 text-center">
+          
+          
+            <hr>
+            <p>
+            <small>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a>.</small>
+            </p>
+          
+
+          
+          
+      </footer>
+    
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="../../js/bootstrap-3.0.3.min.js"></script>
+
+    
+    <script src="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.18.0/build/highlight.min.js"></script>
+        
+    <script>hljs.initHighlightingOnLoad();</script>
+    
+
+    <script>var base_url = "../.."</script>
+    
+    <script src="../../js/base.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="../../search/main.js"></script>
+
+    <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">
+                    <span aria-hidden="true">&times;</span>
+                    <span class="sr-only">Close</span>
+                </button>
+                <h4 class="modal-title" id="searchModalLabel">Search</h4>
+            </div>
+            <div class="modal-body">
+                <p>
+                    From here you can search these documents. Enter
+                    your search terms below.
+                </p>
+                <form>
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="keyboardModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+    </body>
+
+</html>
